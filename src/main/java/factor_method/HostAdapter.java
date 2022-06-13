@@ -1,4 +1,4 @@
-package prueba;
+package factor_method;
 
 public class HostAdapter implements IConexionApi{
     private String conexion;

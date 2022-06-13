@@ -1,4 +1,4 @@
-package prueba;
+package factor_method;
 
 public interface IConexionApi {
     public void conectar();

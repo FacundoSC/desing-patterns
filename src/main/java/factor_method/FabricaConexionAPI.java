@@ -1,6 +1,6 @@
-package prueba;
+package factor_method;
 
-public   class FabricaConexionAPI {
+public class FabricaConexionAPI {
     private IConexionApi iConexionApi;
 
     public IConexionApi fabricarConexionAPI(Api api) throws Exception {
@@ -9,6 +9,7 @@ public   class FabricaConexionAPI {
                              break;
             case  HOST_ADAPTER:
                         iConexionApi =new HostAdapter();
+                         break;
             default:
                  throw  new Exception(" no esta instanciado esa api");
 

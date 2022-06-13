@@ -1,4 +1,4 @@
-package prueba;
+package factor_method;
 
 public class CreadorZConect extends Creador{
     @Override

@@ -1,7 +1,7 @@
 package principal;
 
-import prueba.CreadorHostAdapter;
-import prueba.IConexionApi;
+import factor_method.CreadorHostAdapter;
+import factor_method.IConexionApi;
 
 public class Principal {
 

@@ -1,4 +1,4 @@
-package prueba;
+package factor_method;
 
 enum Api {
         Z_CONNECT,
