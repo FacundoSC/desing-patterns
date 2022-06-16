@@ -27,8 +27,6 @@ _
 /src/main/java/abstract_factory/FColor/Rojo.java,2\4\240ec5604aeda04f9e016a9f3ef94151847f3248
 a
 1src/main/java/abstract_factory/FColor/IColor.java,9\a\9a75c292ba917b36e411f6a0b7c65fb447cf916d
-g
-7src/main/java/abstract_factory/enumeration/Factory.java,e\7\e7a521af396bfe31e5b501077cb51183b888dff5
 b
 2src/main/java/abstract_factory/ConcretFactory.java,4\e\4e6a29680c006c9529f35966aa0bfd7f6b311203
 `
