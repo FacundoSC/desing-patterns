@@ -1,0 +1,103 @@
+@startuml
+'https://plantuml.com/class-diagram
+Builder <|-- AutoBuilder
+Director <..Builder
+AutoBuilder <.. Auto
+Auto <.. Motor
+Auto <..Tipo
+Auto <.. Transmission
+Auto <..GPSNavigator
+Auto <.. ComputadoraTripulada
+
+class Auto {
+ - Tipo TIPO;
+ - int ASIENTOS;
+ - Motor MOTOR;
+ - Transmission TRANSMISSION;
+ - ComputadoraTripulada COMPUTADORA_TRIPULADA;
+ - GPSNavigator GPS_NAVIGATOR;
+ - fuel = 0;
+
+ + Auto(Tipo tipo, int asientos, Motor motor, Transmission transmission,
+                 ComputadoraTripulada computadoraTripulada, GPSNavigator gpsNavigator)
+ + Tipo getTipo()
+ + double getFuel()
+ + void setFuel(double fuel)
+ + int getASIENTOS()
+ + Motor getMOTOR()
+ + Transmission getTRANSMISSION()
+ + ComputadoraTripulada getTripComputer()
+ + GPSNavigator getGPS_NAVIGATOR()
+ +   String toString()
+}
+
+enum Tipo {
+ FAMILIAR,DEPORTIVO,SUV
+}
+
+enum Transmission {
+    SINGLE_SPEED, MANUAL, AUTOMATIC, SEMI_AUTOMATIC
+}
+
+class Motor {
+- double VOLUMEN;
+- double kilometraje;
+- boolean estado;
++ Motor(double VOLUMEN, double kilometraje);
++  on()
++ off()
++ boolean estaEncendido()
++ andar(double kilometraje)
++ double getVolumen()
++ double getKilometraje()
+}
+
+class GPSNavigator {
+ - String route;
+ + GPSNavigator()
+ + GPSNavigator(String manualRoute)
+ + String getRoute()
+}
+class ComputadoraTripulada {
+- Auto auto;
++ setCar(Auto auto)
++ showFuelLevel()
++ showStatus()
+}
+
+
+
+interface Builder {
+setTipo(Tipo tipo);
+setAsientos(int asientos);
+setMotor(Motor motor);
+setTransmission(Transmission transmission);
+setComputadoraTripulada(ComputadoraTripulada computadoraTripulada);
+setGPSNavigator(GPSNavigator gpsNavigator);
+}
+
+class AutoBuilder {
+- Tipo tipo;
+- int asientos;
+- Motor motor;
+- Transmission transmission;
+- ComputadoraTripulada computadoraTripulada;
+- GPSNavigator gpsNavigator;
++ setTipo(Tipo tipo)
++ setAsientos(int asientos)
++ setMotor(Motor motor)
++ setTransmission(Transmission transmission)
++ setComputadoraTripulada(ComputadoraTripulada computadoraTripulada)
++ setGPSNavigator(GPSNavigator gpsNavigator)
++ Auto getResult()
+}
+
+class Director {
++ constructSportsCar(Builder builder)
++ constructorAutoFamiliar(Builder builder)
++ constructSUV(Builder builder)
+}
+
+
+
+@enduml

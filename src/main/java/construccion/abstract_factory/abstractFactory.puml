@@ -1,0 +1,85 @@
+@startuml
+'https://plantuml.com/class-diagram
+IColor <|-- Rojo
+IColor <|-- Azul
+IAnimal <|-- Perro
+IAnimal <|-- Pato
+AbstractFactory <|--AnimalFactory
+AbstractFactory <|--ColorFactory
+ConcretFactory <.. AbstractFactory
+
+AnimalFactory <.. IAnimal
+AnimalFactory <.. Animal
+
+ColorFactory <.. IColor
+ColorFactory <.. Color
+
+interface AbstractFactory <T,A>{
+ public T crear(A a);
+}
+
+
+class AnimalFactory {
++ IAnimal crear(Animal animal)
+}
+
+class ColorFactory {
++ IColor crear(Color color)
+
+}
+
+class ConcretFactory{
+ - {static} AbstractFactory a;
+ + {static} AbstractFactory getFactory(Factory factory)
+}
+
+
+
+
+
+interface IColor{
+ + String getColor();
+}
+
+class Rojo {
+ + String getColor();
+
+}
+
+class Azul {
+ + String getColor();
+
+}
+
+interface IAnimal{
+  + String getTipo();
+  + String makeSound();
+}
+
+class Pato {
+  + String getTipo();
+  + String makeSound();
+}
+
+class Perro {
+  + String getTipo();
+  + String makeSound();
+}
+
+
+enum Animal {
+PATO
+PERRO
+}
+
+enum Color {
+AZUL
+ROJO
+}
+
+enum Factory {
+ANIMAL
+COLOR
+}
+
+@enduml
