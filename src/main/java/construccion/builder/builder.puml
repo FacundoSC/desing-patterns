@@ -1,6 +1,6 @@
 @startuml
 'https://plantuml.com/class-diagram
-Builder <|-- AutoBuilder
+Builder <|.. AutoBuilder
 Director <..Builder
 AutoBuilder <.. Auto
 Auto <.. Motor
