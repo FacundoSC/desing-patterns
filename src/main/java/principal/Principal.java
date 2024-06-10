@@ -35,6 +35,7 @@ import comportamiento.visitor.ClassicCreditCardVisitor;
 import comportamiento.visitor.OfertaElement;
 import comportamiento.visitor.OfertaGasolina;
 import comportamiento.visitor.OfertaVuelos;
+import construccion.builder.v1.Motor;
 import construccion.prototype.Circle;
 import construccion.prototype.PrototypeFactory;
 import construccion.prototype.PrototypeShapes;
@@ -48,7 +49,8 @@ public class Principal {
       //TODO: CREACIONALES
 
       // proveSingleton();
-      provePrototype();
+      //provePrototype();
+      proveBuilder();
 
 
       //TODO: COMPORTAMIENTO
@@ -95,6 +97,13 @@ public class Principal {
     catch (CloneNotSupportedException e) {
       e.printStackTrace();
     }
+  }
+
+
+  private static void proveBuilder(){
+    System.out.println("Inicio de la prueba del patron Builder como lo tienen builder loombok");
+    Motor motor = Motor.builder().estado(true).kilometraje(100).volumen(2.0).build();
+    System.out.println(motor);
   }
 
 

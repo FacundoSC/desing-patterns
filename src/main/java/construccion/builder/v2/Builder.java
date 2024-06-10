@@ -1,4 +1,4 @@
-package construccion.builder;
+package construccion.builder.v2;
 
 /**
  * Builder interface defines all possible ways to configure a product.

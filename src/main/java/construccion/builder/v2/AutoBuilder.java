@@ -1,4 +1,4 @@
-package construccion.builder;
+package construccion.builder.v2;
 
 /**
  * Concrete builders implement steps defined in the common interface.

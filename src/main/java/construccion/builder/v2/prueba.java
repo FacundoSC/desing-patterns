@@ -1,4 +1,4 @@
-package construccion.builder;
+package construccion.builder.v2;
 
 public class prueba {
     public static void main(String[] args) {

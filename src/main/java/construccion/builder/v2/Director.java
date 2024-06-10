@@ -1,4 +1,4 @@
-package construccion.builder;
+package construccion.builder.v2;
 
 /**
  * La clase directora define el orgen del los pasos para la construccion del producto.
