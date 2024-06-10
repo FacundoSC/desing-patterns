@@ -1,0 +1,9 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Card {
+- Instance :Card
+- Card()
++ getInstance() :Card
+}
+@enduml

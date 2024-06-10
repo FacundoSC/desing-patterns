@@ -1,0 +1,38 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+PrototypeShapes <|.. Circule
+PrototypeShapes <|.. Rectangle
+PrototypeShapes <|.. Square
+PrototypeFactory <|-- ShapesType
+PrototypeFactory <|-- PrototypeShapes
+
+
+class PrototypeFactory {
+  + PrototypeShapes getShape(String shapeType)
+  + loadCache()
+}
+
+
+interface PrototypeShapes {
+    +clone()
+}
+
+
+
+class Circule {
+}
+
+class Rectangle {
+}
+
+class Square{
+}
+
+enum ShapesType {
+CIRCLE
+SQUARE
+RECTANGLE
+}
+
+@enduml
