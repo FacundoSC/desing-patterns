@@ -1,57 +1,31 @@
 package principal;
 
 
-import comportamiento.chain_of_responsability.Card;
-import comportamiento.command.CreditCard;
-import comportamiento.command.CreditCardActivateCommand;
-import comportamiento.command.CreditCardDesactivateCommand;
-import comportamiento.command.CreditCardInvoker;
-import comportamiento.interpreter.AndExpression;
-import comportamiento.interpreter.Expression;
-import comportamiento.interpreter.OrExpression;
-import comportamiento.interpreter.TerminalExpression;
-import comportamiento.iterator.CardList;
-import comportamiento.iterator.Iterator;
-import comportamiento.iterator.List;
-import comportamiento.mediator.ConcreteColleageOne;
-import comportamiento.mediator.ConcreteColleageTwo;
-import comportamiento.mediator.ConcreteMediator;
-import comportamiento.memento.Article;
-import comportamiento.memento.ArticleMemento;
-import comportamiento.memento.Carataker;
-import comportamiento.observer.Coche;
-import comportamiento.observer.MessagePublisher;
-import comportamiento.observer.Peaton;
-import comportamiento.observer.Semaforo;
-import comportamiento.state.MobileAlertStateContext;
-import comportamiento.state.Silent;
-import comportamiento.state.Vibration;
-import comportamiento.strategy.Context;
-import comportamiento.strategy.StrategyTextFormatLower;
-import comportamiento.strategy.StrategyTextFormatUpper;
-import comportamiento.template_method.Payment;
-import comportamiento.template_method.Visa;
-import comportamiento.visitor.ClassicCreditCardVisitor;
-import comportamiento.visitor.OfertaElement;
-import comportamiento.visitor.OfertaGasolina;
-import comportamiento.visitor.OfertaVuelos;
+import construccion.abstract_factory.AbstractFactory;
+import construccion.abstract_factory.ConcretFactory;
+import construccion.abstract_factory.FAnimal.IAnimal;
+import construccion.abstract_factory.FColor.IColor;
+import construccion.abstract_factory.enumeration.Animal;
+import construccion.abstract_factory.enumeration.Color;
+import construccion.abstract_factory.enumeration.Factory;
 import construccion.builder.v1.Motor;
+import construccion.factorymethod.Button;
+import construccion.factorymethod.ButtonFactory;
+import construccion.factorymethod.TypeButton;
 import construccion.prototype.Circle;
 import construccion.prototype.PrototypeFactory;
 import construccion.prototype.PrototypeShapes;
-import java.util.ArrayList;
 
 public class Principal {
 
     public static void main(String[] args) {
-
-
       //TODO: CREACIONALES
 
-      // proveSingleton();
+      //proveSingleton();
       //provePrototype();
-      proveBuilder();
-
+      //proveBuilder();
+      //proveFactoryMethod();
+      proveAbstractFactory();
 
       //TODO: COMPORTAMIENTO
       //proveChainOfResponsability();
@@ -72,7 +46,18 @@ public class Principal {
       //proveBridge();
     }
 
-
+  private static void proveFactoryMethod() {
+    Button button = ButtonFactory.buildButton(TypeButton.HTML);
+    button.onClick();
+  }
+  private static void proveAbstractFactory(){
+      AbstractFactory abstractFactory = ConcretFactory.getFactory(Factory.ANIMAL);
+      IAnimal p = (IAnimal) abstractFactory.crear(Animal.PATO);
+      System.out.println(p.getTipo());
+      abstractFactory = ConcretFactory.getFactory(Factory.COLOR);
+      IColor crear = (IColor) abstractFactory.crear(Color.AZUL);
+      System.out.println(crear.getColor());
+  }
   private static void proveSingleton() {
     System.out.println("Inicio de la prueba del patron Singleton");
     construccion.singleton.Card card = construccion.singleton.Card.getInstance();
@@ -98,15 +83,13 @@ public class Principal {
       e.printStackTrace();
     }
   }
-
-
   private static void proveBuilder(){
     System.out.println("Inicio de la prueba del patron Builder como lo tienen builder loombok");
     Motor motor = Motor.builder().estado(true).kilometraje(100).volumen(2.0).build();
     System.out.println(motor);
   }
 
-
+/*
   private static void proveChainOfResponsability() {
     System.out.println("Inicio de la prueba del patron Chain of Responsability");
     Card tarjeta = new Card();
@@ -256,8 +239,6 @@ public class Principal {
     element = new OfertaVuelos();
     element.accept(new ClassicCreditCardVisitor());
   }
-
-
   private static void proveAdapter() {
     structural.adapter.CreditCard creditCard = new structural.adapter.CreditCard();
     creditCard.pay("classic");
@@ -265,12 +246,13 @@ public class Principal {
     creditCard.pay("black");
     creditCard.pay("platinum");
   }
-
   private static void proveBridge() {
     structural.bridge.ClassicCreditCard classicCreditCard = new structural.bridge.ClassicCreditCard(new structural.bridge.UnsecureCreditCard());
     classicCreditCard.realizarPago();
   }
 
+
+ */
 
 
 }

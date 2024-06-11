@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+Button <|.. HtmlButton
+Button <|.. WindowsButton
+ButtonFactory <.. TypeButton
+ButtonFactory <.. Button
+
+
+interface Button
+class HtmlButton {
+}
+class WindowsButton {
+}
+
+class ButtonFactory{
++buildButton(TypeButton typeButton):Button
+}
+enum TypeButton {
+HTML
+WINDOW
+}
+
+@enduml
