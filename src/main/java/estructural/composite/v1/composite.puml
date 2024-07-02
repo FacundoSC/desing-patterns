@@ -1,0 +1,42 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+CuentaComponent <|.. CuentaComposite
+CuentaComposite "1" *-- "0..*" CuentaComponent
+
+CuentaComponent <|.. CuentaAhorro
+CuentaComponent <|.. CuentaCorriente
+
+
+class CuentaComposite{
+ cuentas:[CuentaComponent]
+  showAccountName()
+  getAmount():Double
+  addCuenta(CuentaComponent)
+  removeCuenta(CuentaComponent)
+  getChild(Integer):CuentaComponent
+
+}
+
+
+interface CuentaComponent{
+  showAccountName()
+  getAmount():Double
+}
+
+class CuentaAhorro{
+  showAccountName()
+  getAmount():Double
+}
+
+class CuentaCorriente{
+  showAccountName()
+  getAmount():Double
+}
+
+
+
+
+
+
+@enduml

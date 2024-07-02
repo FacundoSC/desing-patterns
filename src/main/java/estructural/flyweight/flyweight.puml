@@ -1,0 +1,40 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Detective
+class Private
+class EnemyFactory
+interface Enemy
+
+Enemy <|.. Private
+Enemy <|.. Detective
+EnemyFactory *-- Private
+EnemyFactory *-- Detective
+EnemyFactory *-- Enemy
+
+interface Enemy {
+  +setWeapon(String weapon)
+  +lifePoints()
+}
+
+class Private {
+  - weapon: String
+  - LIFE: String
+
+  +setWeapon(String weapon)
+  +lifePoints()
+}
+
+class Detective {
+  - weapon: String
+  - LIFE: String
+  +setWeapon(String weapon)
+  +lifePoints()
+}
+
+class EnemyFactory {
+  - enemies :HashMap;
+  +getEnemy(String type)
+}
+
+@enduml

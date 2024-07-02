@@ -1,0 +1,45 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+ThirdPartyYouTubeLib <|.. ThirdPartyYouTubeClass
+ThirdPartyYouTubeLib <|.. YouTubeCacheProxy
+ThirdPartyYouTubeLib *-- Video
+ThirdPartyYouTubeClass *-- Video
+YouTubeCacheProxy *-- Video
+YouTubeDownloader *-- ThirdPartyYouTubeLib
+
+
+class YouTubeDownloader{
+  -api:ThirdPartyYouTubeLib
+  +renderVideoPage(videoId:String)
+  +renderPopularVideos()
+}
+
+
+
+interface ThirdPartyYouTubeLib{
+  popularVideos():HashMap<String, Video>
+  getVideo(String videoId):Video
+}
+
+class ThirdPartyYouTubeClass{
+  + HashMap<String, Video> popularVideos()
+  + Video getVideo(String videoId)
+}
+
+class YouTubeCacheProxy{
+  + HashMap<String, Video> popularVideos()
+  + Video getVideo(String videoId)
+}
+
+
+class Video {
+  + String id
+  + String title
+  + String data
+  +Video(id: String, title: String, data: String)
+}
+
+
+
+@enduml

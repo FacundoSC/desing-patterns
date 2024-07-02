@@ -15,17 +15,52 @@ import construccion.factorymethod.TypeButton;
 import construccion.prototype.Circle;
 import construccion.prototype.PrototypeFactory;
 import construccion.prototype.PrototypeShapes;
+import estructural.adapter.v2.RoundHole;
+import estructural.adapter.v2.RoundPeg;
+import estructural.adapter.v2.SquarePeg;
+import estructural.adapter.v2.SquarePegAdapter;
+import estructural.bridge.v2.AdvancedRemote;
+import estructural.bridge.v2.BasicRemote;
+import estructural.bridge.v2.Device;
+import estructural.bridge.v2.Radio;
+import estructural.bridge.v2.TV;
+import estructural.composite.v1.CuentaAhorro;
+import estructural.composite.v1.CuentaComponent;
+import estructural.composite.v1.CuentaComposite;
+import estructural.composite.v1.CuentaCorriente;
+import estructural.decorator.CompressionDecorator;
+import estructural.decorator.DataSource;
+import estructural.decorator.DataSourceDecorator;
+import estructural.decorator.EncryptionDecorator;
+import estructural.decorator.FileDataSource;
+import estructural.facade.VideoConversionFacade;
+import estructural.proxy.ThirdPartyYouTubeClass;
+import estructural.proxy.YouTubeCacheProxy;
+import estructural.proxy.YouTubeDownloader;
+import java.io.File;
+import java.util.List;
 
 public class Principal {
 
     public static void main(String[] args) {
       //TODO: CREACIONALES
-
       //proveSingleton();
       //provePrototype();
       //proveBuilder();
       //proveFactoryMethod();
-      proveAbstractFactory();
+      //proveAbstractFactory();
+      //proveFactoryMethod();
+
+      //TODO: ESTRUCTURALES
+      //proveAdapter();
+      //proveBridge();
+      //proveFacade();
+      proveProxy();
+      // proveComposite();
+      // proveDecorator();
+
+
+
 
       //TODO: COMPORTAMIENTO
       //proveChainOfResponsability();
@@ -40,14 +75,12 @@ public class Principal {
       //proveTemplateMethod();
       //proveVisitor();
 
-      //TODO: ESTRUCTURALES
 
-      // proveAdapter();
-      //proveBridge();
     }
 
+  //TODO: CREACIONALES
   private static void proveFactoryMethod() {
-    Button button = ButtonFactory.buildButton(TypeButton.HTML);
+    Button button = ButtonFactory.createButton(TypeButton.HTML);
     button.onClick();
   }
   private static void proveAbstractFactory(){
@@ -88,6 +121,129 @@ public class Principal {
     Motor motor = Motor.builder().estado(true).kilometraje(100).volumen(2.0).build();
     System.out.println(motor);
   }
+
+
+  //TODO: ESTRUCTURALES
+  private static void proveAdapter() {
+    RoundHole roundHole = new RoundHole(5);
+    RoundPeg roundPeg = new RoundPeg(7);
+    SquarePeg squareSmallPeg = new SquarePeg(5);
+    SquarePeg squareLargePeg = new SquarePeg(10);
+
+    SquarePegAdapter squarePegAdapter = new SquarePegAdapter(squareSmallPeg);
+
+    if (roundHole.fits(roundPeg)) {
+      System.out.println("El agujero es lo suficientemente grande para el objeto redondo");
+    } else {
+      System.out.println("El agujero no es lo suficientemente grande para el objeto redondo");
+    }
+    if (roundHole.fits(squarePegAdapter)) {
+      System.out.println("El agujero es lo suficientemente grande para el objeto cuadrado");
+    } else {
+      System.out.println("El agujero no es lo suficientemente grande para el objeto cuadrado");
+    }
+    squarePegAdapter = new SquarePegAdapter(squareLargePeg);
+
+    if (roundHole.fits(squarePegAdapter)) {
+      System.out.println("El agujero es lo suficientemente grande para el objeto cuadrado");
+    } else {
+      System.out.println("El agujero no es lo suficientemente grande para el objeto cuadrado");
+    }
+
+
+  }
+
+  private static void proveBridge() {
+    Device device = new Radio();
+    System.out.println("Tests with basic remote.");
+    BasicRemote basicRemote = new BasicRemote(device);
+    basicRemote.power();
+    device.printStatus();
+
+    device = new TV();
+    System.out.println("Tests with advanced remote.");
+    AdvancedRemote advancedRemote = new AdvancedRemote(device);
+    advancedRemote.power();
+    advancedRemote.mute();
+    device.printStatus();
+  }
+
+  private static void proveFacade() {
+    VideoConversionFacade converter = new VideoConversionFacade();
+    File mp4Video = converter.convertVideo("youtubevideo.ogg", "mp4");
+  }
+
+  private static void proveProxy() {
+    YouTubeDownloader naiveDownloader = new YouTubeDownloader(new ThirdPartyYouTubeClass());
+    YouTubeDownloader smartDownloader = new YouTubeDownloader(new YouTubeCacheProxy());
+    long naive = test(naiveDownloader);
+    long smart = test(smartDownloader);
+    System.out.print("Time saved by caching proxy: " + (naive - smart) + "ms");
+  }
+
+  private static long test(YouTubeDownloader downloader) {
+    long startTime = System.currentTimeMillis();
+
+    // User behavior in our app:
+    downloader.renderPopularVideos();
+    downloader.renderVideoPage("catzzzzzzzzz");
+    downloader.renderPopularVideos();
+    downloader.renderVideoPage("dancesvideoo");
+    // Users might visit the same page quite often.
+    downloader.renderVideoPage("catzzzzzzzzz");
+    downloader.renderVideoPage("someothervid");
+
+    long estimatedTime = System.currentTimeMillis() - startTime;
+    System.out.print("Time elapsed: " + estimatedTime + "ms\n");
+    return estimatedTime;
+  }
+
+  private static void proveComposite() {
+    //TODO VENTAJAS permite tratar objetos compuestos y simples de la misma manera
+    //TODO VENTAJAS permite agregar y quitar objetos en tiempo de ejecucion
+    //TODO VENTAJAS permite que los clientes ignoren la diferencia entre objetos primitivos y compuestos
+    //TODO DESVENTAJAS puede hacer que el diseño sea mas complejo
+
+    CuentaComponent cuentaAhorro = new CuentaAhorro(100.0, "CA");
+    CuentaComponent cuentaAhorro2 = new CuentaCorriente(200.0, "CC");
+    CuentaComposite cuentaComposite = new CuentaComposite(List.of());
+    CuentaComposite composite = new CuentaComposite(List.of(cuentaAhorro, cuentaAhorro2, cuentaComposite));
+    composite.showAccountName();
+    System.out.println(composite.getAmount());
+
+  }
+
+  private static void proveDecorator() {
+    String salaryRecords = "Name,Salary\nJohn Smith,100000\nSteven Jobs,912000";
+
+    DataSourceDecorator encoded = new CompressionDecorator(
+        new EncryptionDecorator(
+            new FileDataSource("out/OutputDemo.txt")));
+    encoded.writeData(salaryRecords);
+    DataSource plain = new FileDataSource("out/OutputDemo.txt");
+    System.out.println("- Input ----------------");
+    System.out.println(salaryRecords);
+    System.out.println("- Encoded --------------");
+    System.out.println(plain.readData());
+    System.out.println("- Decoded --------------");
+    System.out.println(encoded.readData());
+
+  }
+
+  private static void proveFlyweight() {
+    //TODO VENTAJAS permite ahorrar memoria al compartir objetos que son similares
+    //TODO VENTAJAS permite que los objetos compartan informacion que no cambia
+    //TODO VENTAJAS permite que los objetos compartan informacion que no cambia
+    //TODO VENTAJAS permite que los objetos compartan informacion que no cambia
+    //TODO DESVENTAJAS puede hacer que el codigo sea mas complejo
+    //TODO DESVENTAJAS puede hacer que el codigo sea mas dificil de entender
+    //TODO DESVENTAJAS puede hacer que el codigo sea mas dificil de mantener
+    //TODO DESVENTAJAS puede hacer que el codigo sea mas dificil de probar
+  }
+
+
+
+
 
 /*
   private static void proveChainOfResponsability() {
@@ -238,17 +394,6 @@ public class Principal {
     element.accept(new ClassicCreditCardVisitor());
     element = new OfertaVuelos();
     element.accept(new ClassicCreditCardVisitor());
-  }
-  private static void proveAdapter() {
-    structural.adapter.CreditCard creditCard = new structural.adapter.CreditCard();
-    creditCard.pay("classic");
-    creditCard.pay("gold");
-    creditCard.pay("black");
-    creditCard.pay("platinum");
-  }
-  private static void proveBridge() {
-    structural.bridge.ClassicCreditCard classicCreditCard = new structural.bridge.ClassicCreditCard(new structural.bridge.UnsecureCreditCard());
-    classicCreditCard.realizarPago();
   }
 
 

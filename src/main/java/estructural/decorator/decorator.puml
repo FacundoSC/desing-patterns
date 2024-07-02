@@ -1,0 +1,40 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+DataSource <|.. FileDataSource
+DataSource <|.. DataSourceDecorator
+DataSource "0..*" --* "1" DataSourceDecorator
+DataSourceDecorator <|-- EncryptionDecorator
+DataSourceDecorator <|-- CompressionDecorator
+
+interface DataSource{
+    +readData(): string
+    +writeData(data: string): void
+}
+
+class FileDataSource {
+    +readData(): string
+    +writeData(data: string): void
+}
+
+class DataSourceDecorator {
+    -wrappee: DataSource
+    +readData(): string
+    +writeData(data: string): void
+}
+
+class EncryptionDecorator {
+    +readData(): string
+    +writeData(data: string): void
+}
+
+class CompressionDecorator {
+    +readData(): string
+    +writeData(data: string): void
+}
+
+
+
+
+
+@enduml

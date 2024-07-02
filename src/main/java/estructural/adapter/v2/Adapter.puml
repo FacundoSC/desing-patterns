@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+RoundHole *-- RoundPeg
+
+RoundPeg <|-- SquarePegAdapter
+
+SquarePegAdapter *-- SquarePeg
+
+class RoundHole {
+- radius: double
++getRadius()
++fill(RoundPeg roundPeg)
+}
+class RoundPeg {
+- radius: double
++getRadius()
+}
+
+class SquarePegAdapter {
+ -squarePeg SquarePeg
++getRadius()
+}
+
+class SquarePeg {
+ - width double
++getWidth()
+}
+
+@enduml

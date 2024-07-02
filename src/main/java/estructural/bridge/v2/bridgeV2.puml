@@ -1,0 +1,77 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+
+Device <|.. Radio
+
+Device <|.. TV
+
+Remote <|.. BasicRemote
+
+BasicRemote <|-- AdvanceRemote
+
+BasicRemote *--> Device
+
+interface Device {
+  + isEnabled()
+  + enable()
+  + disable()
+  + getVolume()
+  + setVolume(int percent)
+  + getChannel()
+  + setChannel(int channel)
+  + printStatus()
+}
+
+class Radio{
+  - on: boolean
+  - volume: int
+  - channel: int
+  + isEnabled()
+  + enable()
+  + disable()
+  + getVolume()
+  + setVolume(int percent)
+  + getChannel()
+  + setChannel(int channel)
+  + printStatus()
+}
+
+
+class TV{
+  - on: boolean
+  - volume: int
+  - channel: int
+  + isEnabled()
+  + enable()
+  + disable()
+  + getVolume()
+  + setVolume(int percent)
+  + getChannel()
+  + setChannel(int channel)
+  + printStatus()
+}
+
+interface  Remote{
+    + power()
+    + volumeDown()
+    + volumeUp()
+    + channelDown()
+    + channelUp()
+}
+
+class  BasicRemote{
+    - device: Device
+    + power()
+    + volumeDown()
+    + volumeUp()
+    + channelDown()
+    + channelUp()
+}
+
+class  AdvanceRemote{
+   + mute()
+}
+
+@enduml

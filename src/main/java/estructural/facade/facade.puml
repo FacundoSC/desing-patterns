@@ -1,0 +1,56 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+Codec <|.. MPEG4CompressionCodec
+Codec <|.. OggCompressionCodec
+AudioMixer *-- VideoFile
+BitrateReader *-- VideoFile
+BitrateReader *-- Codec
+CodecFactory *-- VideoFile
+CodecFactory *-- Codec
+VideoConversionFacade o-- VideoFile
+VideoConversionFacade o-- AudioMixer
+VideoConversionFacade o-- BitrateReader
+VideoConversionFacade o-- CodecFactory
+
+
+interface Codec
+
+class MPEG4CompressionCodec{
++ type:String
+}
+
+class OggCompressionCodec{
++ type:String
+}
+
+class VideoFile{
+- name:String
+- codecType:String
++VideoFile(name:String, codecType:String)
++ getName()
++ getCodecType()
+}
+
+
+class BitrateReader {
+  + read(VideoFile file, Codec codec):VideoFile
+  + convert(VideoFile buffer, Codec codec):VideoFile
+}
+
+class AudioMixer {
+  + fix(VideoFile result):File
+}
+
+class CodecFactory {
+  + extract(VideoFile file):Codec
+}
+
+
+class VideoConversionFacade {
+  + convertVideo(String fileName, String format):File
+}
+
+
+
+@enduml
