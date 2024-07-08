@@ -1,0 +1,35 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Coche <<concrete observable1>>
+class Peaton <<concrete observable2>>
+Observer --o Subject
+
+ interface Observer {
+  update(Semaforo semaforo):void
+}
+
+class Coche implements Observer{
+  +update(Semaforo semaforo):void
+}
+class Peaton implements Observer{
+  +update(Semaforo semaforo):void
+}
+
+interface Subject {
+  attach(Observer observer):void
+  detach(Observer observer):void
+  notifyUpdate(Semaforo semaforo):void
+}
+
+
+class MessagePublisher implements Subject {
+
+  - observers:List<Observer>
+  +attach(Observer observer):void
+  +detach(Observer observer):void
+  +notifyUpdate(Semaforo semaforo):void
+}
+
+
+@enduml
