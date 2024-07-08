@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+Context *-- StrategyTextFormat
+
+interface StrategyTextFormat{
+  + format(text:String):String
+}
+class StrategyTextFormatLower implements StrategyTextFormat{
+    +format(text:String):String
+}
+class StrategyTextFormatUpper implements StrategyTextFormat{
+    +format(text:String):String
+}
+class Context{
+    -strategy:StrategyTextFormat
+    +Strategy(strategy:StrategyTextFormat)
+    +format(text:String):String
+}
+@enduml

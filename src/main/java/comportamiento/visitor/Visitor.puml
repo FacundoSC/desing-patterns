@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+interface CreditCardVisitor {
+  ofertaGasolina(ofertaGasolina:OfertaGasolina):void
+  ofertaViaje(ofertaVuelos:OfertaVuelos):void
+}
+
+interface OfertaElement {
+  accept(visitor:CreditCardVisitor):void
+}
+
+class OfertaGasolina implements OfertaElement{
+  +accept(visitor:CreditCardVisitor):void
+}
+
+class OfertaVuelos implements OfertaElement{
+  +accept(visitor:CreditCardVisitor):void
+}
+
+class ClassicCreditCardVisitor implements CreditCardVisitor{
+  +ofertaGasolina(OfertaGasolina ofertaGasolina):void
+
+  +ofertaViaje(OfertaVuelos ofertaVuelos):void
+}
+
+
+
+@enduml

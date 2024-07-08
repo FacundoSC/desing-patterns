@@ -1,0 +1,43 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+Iterator<.. List : <<create>>
+CardIterator<..CardList :<<create>>
+
+
+ class Card {
+  -type:String
+  +Card(String type)
+  +getType():String
+  +setType(String type):void
+}
+
+interface Iterator {
+  hasNext():Boolean
+  next(): Object
+  currentItem(): Object
+}
+
+class CardIterator implements Iterator{
+    -cards:Card[]
+    -position:int
+    +CardIterator(Card[] cards)
+    +Boolean hasNext()
+    +next():Object
+    +currentItem():Object
+}
+
+interface List {
+  iterator():Iterator
+}
+
+class CardList implements List{
+  -cards: Card[]
+  +CardList(Card[] cards)
+  +iterator():Iterator
+}
+
+
+
+
+@enduml

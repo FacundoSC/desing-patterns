@@ -1,7 +1,5 @@
 package comportamiento.chain_of_responsability;
 
-import comportamiento.chain_of_responsability.ApproveLoanChain;
-
 public class Gold implements ApproveLoanChain {
   private ApproveLoanChain next;
   @Override
@@ -20,7 +18,7 @@ public class Gold implements ApproveLoanChain {
     if (amount <= 1000) {
       System.out.println("This request is handled by Gold Card");
     } else {
-      next.creditCardRequest(amount);
+      getNextChain().creditCardRequest(amount);
     }
   }
 }

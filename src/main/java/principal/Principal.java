@@ -1,6 +1,34 @@
 package principal;
 
 
+import comportamiento.chain_of_responsability.Card;
+import comportamiento.command.CreditCard;
+import comportamiento.command.CreditCardActivateCommand;
+import comportamiento.command.CreditCardDesactivateCommand;
+import comportamiento.command.CreditCardInvoker;
+import comportamiento.interpreter.AndExpression;
+import comportamiento.interpreter.Expression;
+import comportamiento.interpreter.OrExpression;
+import comportamiento.interpreter.TerminalExpression;
+import comportamiento.iterator.CardList;
+import comportamiento.mediator.ConcreteColleageOne;
+import comportamiento.mediator.ConcreteColleageTwo;
+import comportamiento.mediator.ConcreteMediator;
+import comportamiento.memento.Article;
+import comportamiento.memento.ArticleMemento;
+import comportamiento.memento.Carataker;
+import comportamiento.state.MobileAlertStateContext;
+import comportamiento.state.Silent;
+import comportamiento.state.Vibration;
+import comportamiento.strategy.Context;
+import comportamiento.strategy.StrategyTextFormatLower;
+import comportamiento.strategy.StrategyTextFormatUpper;
+import comportamiento.template_method.Payment;
+import comportamiento.template_method.Visa;
+import comportamiento.visitor.ClassicCreditCardVisitor;
+import comportamiento.visitor.OfertaElement;
+import comportamiento.visitor.OfertaGasolina;
+import comportamiento.visitor.OfertaVuelos;
 import construccion.abstract_factory.AbstractFactory;
 import construccion.abstract_factory.ConcretFactory;
 import construccion.abstract_factory.FAnimal.IAnimal;
@@ -34,11 +62,14 @@ import estructural.decorator.DataSourceDecorator;
 import estructural.decorator.EncryptionDecorator;
 import estructural.decorator.FileDataSource;
 import estructural.facade.VideoConversionFacade;
+import estructural.flyweight.Enemy;
+import estructural.flyweight.EnemyFactory;
 import estructural.proxy.ThirdPartyYouTubeClass;
 import estructural.proxy.YouTubeCacheProxy;
 import estructural.proxy.YouTubeDownloader;
 import java.io.File;
 import java.util.List;
+import java.util.Random;
 
 public class Principal {
 
@@ -55,23 +86,20 @@ public class Principal {
       //proveAdapter();
       //proveBridge();
       //proveFacade();
-      proveProxy();
+      // proveProxy();
       // proveComposite();
-      // proveDecorator();
-
-
-
+      //proveFlyweight();
 
       //TODO: COMPORTAMIENTO
       //proveChainOfResponsability();
       //proveCommand();
-      //proveIterator();
-      //proveMediator();
+     // proveIterator();
+      proveMediator();
       //proveMemento();
       // proveObserver();
-      //proveState();
+      // proveState();
       // proveInterpreter();
-      //proveStrategy();
+      // proveStrategy();
       //proveTemplateMethod();
       //proveVisitor();
 
@@ -152,7 +180,6 @@ public class Principal {
 
 
   }
-
   private static void proveBridge() {
     Device device = new Radio();
     System.out.println("Tests with basic remote.");
@@ -167,12 +194,10 @@ public class Principal {
     advancedRemote.mute();
     device.printStatus();
   }
-
   private static void proveFacade() {
     VideoConversionFacade converter = new VideoConversionFacade();
     File mp4Video = converter.convertVideo("youtubevideo.ogg", "mp4");
   }
-
   private static void proveProxy() {
     YouTubeDownloader naiveDownloader = new YouTubeDownloader(new ThirdPartyYouTubeClass());
     YouTubeDownloader smartDownloader = new YouTubeDownloader(new YouTubeCacheProxy());
@@ -180,7 +205,6 @@ public class Principal {
     long smart = test(smartDownloader);
     System.out.print("Time saved by caching proxy: " + (naive - smart) + "ms");
   }
-
   private static long test(YouTubeDownloader downloader) {
     long startTime = System.currentTimeMillis();
 
@@ -197,7 +221,6 @@ public class Principal {
     System.out.print("Time elapsed: " + estimatedTime + "ms\n");
     return estimatedTime;
   }
-
   private static void proveComposite() {
     //TODO VENTAJAS permite tratar objetos compuestos y simples de la misma manera
     //TODO VENTAJAS permite agregar y quitar objetos en tiempo de ejecucion
@@ -212,7 +235,6 @@ public class Principal {
     System.out.println(composite.getAmount());
 
   }
-
   private static void proveDecorator() {
     String salaryRecords = "Name,Salary\nJohn Smith,100000\nSteven Jobs,912000";
 
@@ -229,7 +251,6 @@ public class Principal {
     System.out.println(encoded.readData());
 
   }
-
   private static void proveFlyweight() {
     //TODO VENTAJAS permite ahorrar memoria al compartir objetos que son similares
     //TODO VENTAJAS permite que los objetos compartan informacion que no cambia
@@ -239,20 +260,37 @@ public class Principal {
     //TODO DESVENTAJAS puede hacer que el codigo sea mas dificil de entender
     //TODO DESVENTAJAS puede hacer que el codigo sea mas dificil de mantener
     //TODO DESVENTAJAS puede hacer que el codigo sea mas dificil de probar
+    for (int i = 0; i < 15; i++) {
+      Enemy enemy = EnemyFactory.getEnemy(getRandomEnemyType());
+      enemy.setWeapon(getRandomWeapon());
+      enemy.lifePoints();
+    }
+
+  }
+  private static String[] enemyTypes = new String[] {"Private", "Detective"};
+  private static String[] weapons = new String[] {"pistol", "rifle", "knife"};
+  private static String getRandomEnemyType() {
+    return enemyTypes[new Random().nextInt(enemyTypes.length)];
+  }
+  private static String getRandomWeapon() {
+    return weapons[new Random().nextInt(weapons.length)];
   }
 
 
-
-
-
-/*
+  //TODO: COMPORTAMIENTO
   private static void proveChainOfResponsability() {
+    //TODO VENTAJAS permite que varios objetos manejen una peticion sin que el cliente tenga que especificar el receptor
+    //TODO VENTAJAS permite que los objetos se encadenen en una secuencia y pasen la peticion a lo largo de la cadena
+    //TODO DESVENTAJAS puede hacer que el codigo sea mas dificil de entender
     System.out.println("Inicio de la prueba del patron Chain of Responsability");
     Card tarjeta = new Card();
-    tarjeta.creditCardRequest(50001);
+    tarjeta.creditCardRequest(5000);
   }
-
   private static void proveCommand() {
+    //TODO VENTAJAS permite desacoplar el objeto que invoca la operacion del objeto que la realiza
+    //TODO VENTAJAS permite parametrizar los objetos con operaciones
+    //TODO DESVENTAJAS puede hacer que el codigo sea mas dificil de entender
+
     System.out.println("Inicio de la prueba del patron Command");
     CreditCard creditCard = new CreditCard();
     creditCard.setFirstName("Juan");
@@ -261,34 +299,30 @@ public class Principal {
     creditCardInvoker.run();
     creditCardInvoker.setCommand(new CreditCardDesactivateCommand(creditCard));
     creditCardInvoker.run();
-
-    //TODO
     System.out.println("Fin de la prueba del patron Command");
   }
-
   private static void proveIterator() {
     //TODO VENTAJAS podemos acceder a los elementos de la lista sin conocer la estructura interna de los objetos
     //TODO VENTAJAS podemos recorrer la lista en cualquier dirección si creamos mas de un iterator
     //TODO VENTAJAS las clases iteratores no simplifican el codigo que tiene que haber en las colecciones
     //TODO VENTAJAS podemos tener varios iteradores sobre la misma lista
     //TODO VENTAJAS los recorridos estan en los iteratores y no en las colecciones
-
     //TODO DESVENTAJAS no podemos recorrer la lista en dos direcciones al mismo tiempo
     //TODO DESVENTAJAS java ya nos ofrece colleciones e iteradores
-
     comportamiento.iterator.Card[] cards = new comportamiento.iterator.Card[5];
     cards[0] = new comportamiento.iterator.Card("VISA");
     cards[1] = new comportamiento.iterator.Card("MasterCard");
     cards[2] = new comportamiento.iterator.Card("American Express");
     cards[3] = new comportamiento.iterator.Card("Diners");
     cards[4] = new comportamiento.iterator.Card("Discover");
-    List list = new CardList(cards);
-    Iterator iterator = list.iterator();
+    comportamiento.iterator.List list = new CardList(cards);
+    comportamiento.iterator.Iterator iterator = list.iterator();
     while (iterator.hasNext()) {
       System.out.println(iterator.next());
     }
 
   }
+
 
   private static void proveMediator() {
     //TODO VENTAJAS desacopla los objetos  usuarios,  usando el mediador se encarga de la comunicacion entre ellos
@@ -303,6 +337,7 @@ public class Principal {
     user1.send("Hi, I am user1");
     user2.send("Hi, I am user2");
   }
+
 
 
   private static void proveMemento() {
@@ -329,6 +364,7 @@ public class Principal {
     System.out.println(mementoTwo.getText());
   }
 
+  /*
   private static void proveObserver() {
     Coche coche = new Coche();
     Peaton peaton = new Peaton();
@@ -344,9 +380,13 @@ public class Principal {
     messagePublisher.notifyUpdate(new Semaforo("Verde"));
 
 
-  }
+  }*/
 
   private static void proveState() {
+    //TODO VENTAJAS permite que un objeto cambie su comportamiento cuando su estado interno cambia
+    //TODO VENTAJAS permite que un objeto tenga varios estados y cambie de uno a otro en tiempo de ejecucion
+    //TODO VENTAJAS permite que un objeto delegue el comportamiento a un objeto que representa su estado
+    //TODO DESVENTAJAS puede hacer que el codigo sea mas complejo
     MobileAlertStateContext context = new MobileAlertStateContext();
     context.alert();
     context.alert();
@@ -358,7 +398,13 @@ public class Principal {
     context.alert();
   }
 
+
   private static void proveInterpreter() {
+    //TODO VENTAJAS permite definir una gramatica para interpretar un lenguaje
+    //TODO VENTAJAS es facil cambiar la gramatica a traves de la herencia
+    //TODO DESVENTAJAS no se usa mucho
+    //TODO DESVENTAJAS no es un patron eficiente en cuestion de rendimientos
+    //TODO DESVENTAJAS las gramaticas complejas son dificiles de mantener
     Expression cero = new TerminalExpression("0");
     Expression uno = new TerminalExpression("1");
     Expression orBoolean = new OrExpression(cero, uno);
@@ -370,13 +416,20 @@ public class Principal {
     System.out.println(andBoolean.interpret("0 1"));
   }
 
+
+
   private static void proveStrategy() {
     //TODO VENTAJAS permite cambiar el comportamiento de un objeto en tiempo de ejecucion
+    //TODO VENTAJAS permite definir una familia de algoritmos, encapsular cada uno de ellos y hacerlos intercambiables
+    //TODO VENTAJAS permite que los algoritmos varien independientemente de los clientes que los utilizan
+    //TODO VENTAJAS permite que los algoritmos puedan ser reutilizados
+    //TODO DESVENTAJAS puede hacer que el codigo sea mas complejo
     Context context = new Context(new StrategyTextFormatLower());
     System.out.println(context.format("Facundo"));
     context = new Context(new StrategyTextFormatUpper());
     System.out.println(context.format("Facundo"));
   }
+
 
   private static void proveTemplateMethod() {
     //TODO VENTAJAS permite definir el esqueleto de un algoritmo en una clase base, dejando que las subclases implementen los detalles
@@ -389,6 +442,7 @@ public class Principal {
     Payment payment = new Visa();
     payment.makePayment();
   }
+
   private static void proveVisitor() {
     OfertaElement element = new OfertaGasolina();
     element.accept(new ClassicCreditCardVisitor());
@@ -397,7 +451,7 @@ public class Principal {
   }
 
 
- */
+
 
 
 }

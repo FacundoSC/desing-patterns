@@ -9,7 +9,7 @@ public class CreditCardInvoker {
     this.command = command;
   }
 
-public void run() {
+  public void run() {
     command.execute();
   }
 

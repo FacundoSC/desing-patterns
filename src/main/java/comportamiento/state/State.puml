@@ -1,0 +1,34 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+MobileAlertStateContext o-- MobileAlertState
+
+
+
+
+class MobileAlertStateContext{
+  - state:MobileAlertState
+   +MobileAlertStateContext()
+   +setState(state:MobileAlertState)
+   +alert()
+}
+
+interface MobileAlertState{
+  alert(context:MobileAlertStateContext)
+
+}
+
+class Vibration implements MobileAlertState{
+  +alert(context:MobileAlertStateContext)
+}
+
+class Silent implements MobileAlertState{
+  +alert(context:MobileAlertStateContext)
+}
+
+class Sound implements MobileAlertState{
+  +alert(context:MobileAlertStateContext)
+}
+
+
+@enduml

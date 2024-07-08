@@ -1,0 +1,47 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+Card *-- Black
+Card *-- Gold
+Card *-- Platinum
+
+interface ApproveLoanChain {
+  setNextChain(ApproveLoanChain nextChain)
+  getNextChain():ApproveLoanChain
+  creditCardRequest(amount:int)
+}
+
+class Black implements ApproveLoanChain {
+  -nextChain:ApproveLoanChain
+  +setNextChain(ApproveLoanChain nextChain)
+  +getNextChain():ApproveLoanChain
+  +creditCardRequest(amount:int)
+}
+
+class Gold implements ApproveLoanChain {
+  -nextChain:ApproveLoanChain
+  +setNextChain(ApproveLoanChain nextChain)
+  +getNextChain():ApproveLoanChain
+  +creditCardRequest(amount:int)
+}
+
+class Platinum implements ApproveLoanChain {
+  -nextChain:ApproveLoanChain
+  +setNextChain(ApproveLoanChain nextChain)
+  +getNextChain():ApproveLoanChain
+  +creditCardRequest(amount:int)
+}
+
+class Card implements ApproveLoanChain {
+  -nextChain:ApproveLoanChain
+  +setNextChain(ApproveLoanChain nextChain)
+  +getNextChain():ApproveLoanChain
+  +creditCardRequest(amount:int)
+}
+
+
+
+
+
+
+@enduml

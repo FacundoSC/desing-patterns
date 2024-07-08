@@ -19,7 +19,7 @@ public class Platinium implements ApproveLoanChain {
     if (1000 < amount && amount <= 50000) {
       System.out.println("This request is handled by Platinium Card");
     } else {
-      next.creditCardRequest(amount);
+      getNextChain().creditCardRequest(amount);
     }
 
   }

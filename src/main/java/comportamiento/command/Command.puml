@@ -1,0 +1,38 @@
+@startuml
+'https://plantuml.com/class-diagram
+CreditCardInvoker o-- Command
+CreditCardActivateCommand *-- CreditCard
+CreditCardDesactivateCommand *-- CreditCard
+
+interface Command {
+    execute()
+}
+class CreditCardActivateCommand implements Command {
+ - creditCard:CreditCard
+ + execute()
+}
+
+class CreditCardDesactivateCommand implements Command {
+ - creditCard:CreditCard
+ + execute()
+}
+
+class CreditCard {
+  -firstName:String
+  +setFirstName(firstName:String):void
+  +getFirstName():String
+  +sendPinNumberToCustomer():void
+  +sendSMSTOCustomerActivate():void
+  +activate():void
+  +desactivate():void
+  +sendSMSTOCustomerDesactivate():void
+}
+
+class CreditCardInvoker {
+   -command:Command
+   +CreditCardInvoker()
+   +setCommand(command:Command):void
+   +run():void
+}
+
+@enduml
