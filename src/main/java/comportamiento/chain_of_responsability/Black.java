@@ -1,7 +1,5 @@
 package comportamiento.chain_of_responsability;
 
-import comportamiento.chain_of_responsability.ApproveLoanChain;
-
 public class Black implements ApproveLoanChain {
 
   private ApproveLoanChain next;

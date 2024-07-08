@@ -1,0 +1,40 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+Colleage *-- Mediator
+
+interface Mediator {
+  sendMessage(String message, Colleage colleage):void
+}
+
+
+abstract class Colleage {
+  #Mediator mediator
+  +Colleage(Mediator mediator)
+  +{abstract}send(String message):void
+  +{abstract}receive(String message):void
+}
+
+
+class ConcreteColleageOne extends Colleage {
+  +ConcreteColleageOne(Mediator mediator)
+  +send(String message):void
+  +receive(String message):void
+}
+
+class ConcreteColleageTwo extends Colleage {
+  +ConcreteColleageTwo(Mediator mediator)
+  +send(String message):void
+  +receive(String message):void
+}
+
+
+class ConcreteMediator implements Mediator {
+  - user1:ConcreteColleageOne
+  - user2:ConcreteColleageTwo
+  +setUser1(ConcreteColleageOne user1):void
+  +setUser2(ConcreteColleageTwo user2):void
+  +sendMessage(String message, Colleage colleage):void
+}
+
+@enduml

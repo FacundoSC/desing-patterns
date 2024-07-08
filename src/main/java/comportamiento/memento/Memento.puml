@@ -1,0 +1,36 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+Article --> ArticleMemento: <<create>>
+Carataker --> Article
+ class Article {
+  -author:String
+  -text:String
+  +Article(String author, String text)
+  +createMemento():ArticleMemento
+  +restore(ArticleMemento memento):void
+  +getAuthor():String
+  +setAuthor(String author):void
+  +getText():String
+  +setText(String text):void
+}
+
+class ArticleMemento {
+  -author:String
+  -text:String
+  +ArticleMemento(String author, String text)
+  +getAuthor():String
+  +getText():String
+}
+
+
+
+class Carataker {
+  -estados:List<ArticleMemento>
+  +addMemento(ArticleMemento memento):void
+  +getMemento(int index):ArticleMemento
+}
+
+
+@enduml

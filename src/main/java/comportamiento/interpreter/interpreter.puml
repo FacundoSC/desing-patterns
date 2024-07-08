@@ -1,0 +1,32 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+OrExpression o-- Expression
+AndExpression o-- Expression
+
+interface Expression {
+    + interpret(context: Context): Boolean
+}
+
+class TerminalExpression extends Expression {
+    - text: String
+    + TerminalExpression(text: String)
+    + interpret(context: Context): Boolean
+}
+
+class OrExpression extends Expression {
+    - expression1: Expression
+    - expression2: Expression
+    + OrExpression(expression1: Expression, expression2: Expression)
+    + interpret(context: Context): Boolean
+}
+
+class AndExpression extends Expression {
+    - expression1: Expression
+    - expression2: Expression
+    + AndExpression(expression1: Expression, expression2: Expression)
+    + interpret(context: Context): Boolean
+}
+
+
+@enduml

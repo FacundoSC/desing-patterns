@@ -15,15 +15,14 @@ public class Card implements ApproveLoanChain {
 
   @Override
   public void creditCardRequest(int amount) {
-      Gold gold = new Gold();
+      ApproveLoanChain gold = new Gold();
       this.setNextChain(gold);
 
-      Platinium platinium = new Platinium();
+      ApproveLoanChain platinium = new Platinium();
       gold.setNextChain(platinium);
 
-      Black black = new Black();
+      ApproveLoanChain black = new Black();
       platinium.setNextChain(black);
-
       next.creditCardRequest(amount);
   }
 }
